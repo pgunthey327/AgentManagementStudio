@@ -4,7 +4,7 @@ A professional VS Code extension for managing, installing, and creating AI agent
 
 ## Features
 
-- **Interactive Group Selection** — choose from Development, Migration, Governance, or All Agents in a single QuickPick dialog
+- **Interactive Group Selection** — choose from Development, Quality Engineering, Migration, Governance, or All Agents in a single QuickPick dialog
 - **Multi-select Agent Installer** — cherry-pick individual agents before installing; existing files are never overwritten
 - **Visual Custom Agent Builder** — a VS Code-themed webview form that generates production-ready agent markdown files
 - **Persistent Custom Specs** — roles, responsibilities, skills, tools, and instructions you add are saved to your workspace and merged with defaults on every launch
@@ -16,6 +16,7 @@ A professional VS Code extension for managing, installing, and creating AI agent
 | Group | Agents |
 |---|---|
 | Development | devSubAgent, leadSubAgent, prSubAgent, requirementAnalysis, reviewSubAgent, testSubAgent, performanceAgent |
+| Quality Engineering | qeLeadOrchestratorAgent, automationScriptGeneratorAgent, testcaseGeneratorAgent | requirementAnalysisAgent
 | Migration | ruleMigrationAgent |
 | Governance | governanceAgent |
 

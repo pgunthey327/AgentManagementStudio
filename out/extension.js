@@ -47,6 +47,11 @@ const AGENT_GROUPS = {
         agents: [],
         relatedDocs: [],
     },
+    qe: {
+        name: 'Quality Engineering Agents',
+        agents: [],
+        relatedDocs: [],
+    },
     migration: {
         name: 'Migration Agents',
         agents: [],
@@ -117,6 +122,11 @@ async function showGroupSelection() {
             detail: 'Full SDLC development workflow agents',
         },
         {
+            label: '$(beaker) Quality Engineering Agents',
+            description: 'QE lead, automation, test case generation, and requirement analysis agents',
+            detail: 'End-to-end quality engineering workflow agents',
+        },
+        {
             label: '$(arrow-right) Migration Agents',
             description: 'Rule migration and transformation agents',
             detail: 'Agents for migrating rules, schemas, and data',
@@ -146,6 +156,7 @@ async function showGroupSelection() {
 async function showAgentSelection(groupLabel) {
     const labelToGroupKey = {
         '$(code) Development Agents': 'dev',
+        '$(beaker) Quality Engineering Agents': 'qe',
         '$(arrow-right) Migration Agents': 'migration',
         '$(shield) Governance Agents': 'governance',
     };
@@ -270,6 +281,20 @@ function saveNewSpec(specType, newSpec, workspaceRoot, extensionPath) {
         catch {
             // Extension resources are read-only in production; user spec file is the source of truth
         }
+    }
+}
+function saveAllSpecs(allSpecs, workspaceRoot) {
+    const userDir = path.join(workspaceRoot, '.github', 'agent-specs');
+    fs.mkdirSync(userDir, { recursive: true });
+    const entries = [
+        ['roles', allSpecs.roles],
+        ['responsibilities', allSpecs.responsibilities],
+        ['skills', allSpecs.skills],
+        ['tools', allSpecs.tools],
+        ['instructions', allSpecs.instructions],
+    ];
+    for (const [type, items] of entries) {
+        fs.writeFileSync(path.join(userDir, `${type}.json`), JSON.stringify(items, null, 2), 'utf8');
     }
 }
 // ─────────────────────────────────────────────
@@ -751,11 +776,10 @@ function getWebviewContent(webview, extensionUri, allSpecs) {
           <!-- Roles -->
           <div class="spec-field">
             <div class="spec-field-header">
-              <label class="field-label" for="rolesSelect">Roles</label>
+              <label class="field-label" for="rolesSelect">Role</label>
               <button class="btn btn-link" id="addRoleBtn">+ Add New</button>
             </div>
-            <select id="rolesSelect" multiple size="5"></select>
-            <span class="spec-hint">Hold Ctrl / ⌘ to multi-select</span>
+            <select id="rolesSelect" size="5"></select>
           </div>
 
           <!-- Responsibilities -->
@@ -821,7 +845,7 @@ function getWebviewContent(webview, extensionUri, allSpecs) {
   <!-- Sticky footer -->
   <div class="footer">
     <button class="btn btn-ghost" id="cancelBtn">Cancel</button>
-    <button class="btn btn-primary" id="createBtn">Generate Agent File</button>
+    <button class="btn btn-primary" id="createBtn">Create Agent</button>
   </div>
 
   <!-- Modal -->
@@ -875,7 +899,7 @@ function getWebviewContent(webview, extensionUri, allSpecs) {
   <script nonce="${nonce}">
     const vscode = acquireVsCodeApi();
 
-    let allSpecs = {
+    const INITIAL_SPECS = {
       roles: ${rolesJson},
       responsibilities: ${respJson},
       skills: ${skillsJson},
@@ -883,6 +907,7 @@ function getWebviewContent(webview, extensionUri, allSpecs) {
       instructions: ${instrJson}
     };
 
+    let allSpecs = INITIAL_SPECS;
     let currentModalType = '';
 
     // ── Populate dropdowns ──────────────────────────────────
@@ -893,6 +918,8 @@ function getWebviewContent(webview, extensionUri, allSpecs) {
         const opt = document.createElement('option');
         opt.value = i;
         opt.textContent = labelFn(item);
+        // multi-select: pre-select all; single-select: pre-select first item
+        opt.selected = sel.multiple ? true : i === 0;
         sel.appendChild(opt);
       });
     }
@@ -905,14 +932,118 @@ function getWebviewContent(webview, extensionUri, allSpecs) {
       populateSelect('instrSelect', allSpecs.instructions, i => i.name);
     }
 
-    // ── Get selected items from a multi-select ──────────────
+    // ── Snapshot / apply selections by spec ID ──────────────
+    function snapshotSelections() {
+      return {
+        resp:   getSelectionIds('respSelect'),
+        skills: getSelectionIds('skillsSelect'),
+        tools:  getSelectionIds('toolsSelect'),
+        instr:  getSelectionIds('instrSelect'),
+        roles:  getSingleSelected('rolesSelect', 'roles').map(i => i.id),
+      };
+    }
+
+    function applySelections(snap) {
+      restoreSelectionsByIds('rolesSelect',  snap.roles  || []);
+      restoreSelectionsByIds('respSelect',   snap.resp   || []);
+      restoreSelectionsByIds('skillsSelect', snap.skills || []);
+      restoreSelectionsByIds('toolsSelect',  snap.tools  || []);
+      restoreSelectionsByIds('instrSelect',  snap.instr  || []);
+    }
+
+    // ── State persistence ───────────────────────────────────
+    const SELECT_MAP = {
+      rolesSelect: 'roles',
+      respSelect: 'responsibilities',
+      skillsSelect: 'skills',
+      toolsSelect: 'tools',
+      instrSelect: 'instructions'
+    };
+
+    function getSelectionIds(selectId) {
+      const specKey = SELECT_MAP[selectId];
+      const sel = document.getElementById(selectId);
+      return Array.from(sel.selectedOptions)
+        .map(o => allSpecs[specKey][parseInt(o.value)]?.id)
+        .filter(Boolean);
+    }
+
+    function restoreSelectionsByIds(selectId, ids) {
+      if (!ids) return;
+      const specKey = SELECT_MAP[selectId];
+      const sel = document.getElementById(selectId);
+      for (const opt of sel.options) {
+        const item = allSpecs[specKey][parseInt(opt.value)];
+        opt.selected = item ? ids.includes(item.id) : false;
+      }
+    }
+
+    function saveState() {
+      vscode.setState({
+        agentName: document.getElementById('agentName').value,
+        description: document.getElementById('description').value,
+        model: document.getElementById('model').value,
+        additionalInfo: document.getElementById('additionalInfo').value,
+        selectedRoles: getSingleSelected('rolesSelect', 'roles').map(i => i.id),
+        selectedResp: getSelectionIds('respSelect'),
+        selectedSkills: getSelectionIds('skillsSelect'),
+        selectedTools: getSelectionIds('toolsSelect'),
+        selectedInstr: getSelectionIds('instrSelect'),
+        specs: allSpecs
+      });
+    }
+
+    function restoreState() {
+      const state = vscode.getState();
+      if (!state) return;
+
+      if (state.specs) {
+        allSpecs = state.specs;
+        // refreshDropdowns already ran; re-run with saved specs then apply saved selections
+        refreshDropdowns();
+      }
+
+      if (state.agentName)      document.getElementById('agentName').value      = state.agentName;
+      if (state.description)    document.getElementById('description').value    = state.description;
+      if (state.model)          document.getElementById('model').value          = state.model;
+      if (state.additionalInfo) document.getElementById('additionalInfo').value = state.additionalInfo;
+
+      // Only restore selections when the user had explicitly interacted (state has the keys)
+      if ('selectedResp' in state) {
+        restoreSelectionsByIds('rolesSelect',  state.selectedRoles  || []);
+        restoreSelectionsByIds('respSelect',   state.selectedResp   || []);
+        restoreSelectionsByIds('skillsSelect', state.selectedSkills || []);
+        restoreSelectionsByIds('toolsSelect',  state.selectedTools  || []);
+        restoreSelectionsByIds('instrSelect',  state.selectedInstr  || []);
+      }
+    }
+
+    // Save state on any form interaction
+    function attachSaveState() {
+      ['agentName', 'description', 'model', 'additionalInfo'].forEach(id => {
+        document.getElementById(id).addEventListener('input', saveState);
+      });
+      Object.keys(SELECT_MAP).forEach(id => {
+        document.getElementById(id).addEventListener('change', saveState);
+      });
+    }
+
+    // ── Get selected items from a select ───────────────────
     function getSelected(selectId, specKey) {
       const sel = document.getElementById(selectId);
       const result = [];
       for (const opt of sel.selectedOptions) {
-        result.push(allSpecs[specKey][parseInt(opt.value)]);
+        const item = allSpecs[specKey][parseInt(opt.value)];
+        if (item) result.push(item);
       }
       return result;
+    }
+
+    function getSingleSelected(selectId, specKey) {
+      const sel = document.getElementById(selectId);
+      if (sel.selectedIndex === -1) return [];
+      const item = allSpecs[specKey][parseInt(sel.value)];
+      return item ? [item] : [];
     }
 
     // ── Modal helpers ───────────────────────────────────────
@@ -971,6 +1102,7 @@ function getWebviewContent(webview, extensionUri, allSpecs) {
 
       allSpecs[currentModalType].push(newSpec);
       refreshDropdowns();
+      saveState();
 
       vscode.postMessage({ command: 'addNewSpec', specType: currentModalType, spec: newSpec });
       closeModal();
@@ -993,7 +1125,7 @@ function getWebviewContent(webview, extensionUri, allSpecs) {
           agentName,
           description,
           model: document.getElementById('model').value,
-          roles: getSelected('rolesSelect', 'roles'),
+          roles: getSingleSelected('rolesSelect', 'roles'),
           responsibilities: getSelected('respSelect', 'responsibilities'),
           skills: getSelected('skillsSelect', 'skills'),
           tools: getSelected('toolsSelect', 'tools'),
@@ -1011,8 +1143,13 @@ function getWebviewContent(webview, extensionUri, allSpecs) {
     window.addEventListener('message', (event) => {
       const msg = event.data;
       if (msg.command === 'updateSpecs') {
+        const snap = snapshotSelections();
         allSpecs = msg.specs;
         refreshDropdowns();
+        // new items land in the list already selected (from populateSelect default);
+        // restore previous explicit selections so nothing the user chose is lost
+        applySelections(snap);
+        saveState();
       }
     });
 
@@ -1025,6 +1162,8 @@ function getWebviewContent(webview, extensionUri, allSpecs) {
 
     // ── Init ────────────────────────────────────────────────
     refreshDropdowns();
+    restoreState();
+    attachSaveState();
     vscode.postMessage({ command: 'ready' });
   </script>
 </body>
@@ -1034,6 +1173,7 @@ async function showCustomAgentWebview(context, workspaceRoot) {
     const panel = vscode.window.createWebviewPanel('customAgentBuilder', 'Custom Agent Builder', vscode.ViewColumn.One, {
         enableScripts: true,
         localResourceRoots: [context.extensionUri],
+        retainContextWhenHidden: true,
     });
     const allSpecs = loadCustomAgentData(context.extensionPath, workspaceRoot);
     panel.webview.html = getWebviewContent(panel.webview, context.extensionUri, allSpecs);
@@ -1062,6 +1202,7 @@ async function showCustomAgentWebview(context, workspaceRoot) {
                 try {
                     saveNewSpec(message.specType, message.spec, workspaceRoot, context.extensionPath);
                     const updatedSpecs = loadCustomAgentData(context.extensionPath, workspaceRoot);
+                    saveAllSpecs(updatedSpecs, workspaceRoot);
                     panel.webview.postMessage({ command: 'updateSpecs', specs: updatedSpecs });
                 }
                 catch (err) {

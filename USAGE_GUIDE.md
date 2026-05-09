@@ -73,7 +73,7 @@ Optionally enter any extra context in the **Additional Information** textarea.
 
 ### Step 5 — Generate
 
-Click **Generate Agent File**. The extension:
+Click **Create Agent**. The extension:
 
 1. Generates a `.agent.md` file in `.github/agents/`
 2. Saves any new specs to `.github/agent-specs/`
