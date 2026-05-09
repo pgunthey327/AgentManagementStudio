@@ -1,0 +1,74 @@
+[
+  {
+    "id": "skill-playwright",
+    "name": "Playwright/Selenium Automation",
+    "version": "1.0.0",
+    "description": "Write robust browser automation tests using Playwright or Selenium WebDriver with Page Object Model patterns."
+  },
+  {
+    "id": "skill-typescript",
+    "name": "TypeScript/JavaScript",
+    "version": "1.0.0",
+    "description": "Develop type-safe applications using TypeScript with modern ES2020+ features, async/await patterns, and strict mode."
+  },
+  {
+    "id": "skill-bdd",
+    "name": "BDD Cucumber Framework",
+    "version": "1.0.0",
+    "description": "Author Gherkin feature files and step definitions using Cucumber.js to drive BDD test workflows readable by non-technical stakeholders."
+  },
+  {
+    "id": "skill-rest-api",
+    "name": "REST API Testing",
+    "version": "1.0.0",
+    "description": "Design and execute REST API tests using tools such as Postman, SuperTest, or RestAssured. Validate status codes, response schemas, and authentication flows."
+  },
+  {
+    "id": "skill-react",
+    "name": "React/Angular/Vue",
+    "version": "1.0.0",
+    "description": "Build and maintain component-driven UIs using modern JavaScript frameworks with state management, routing, and testing best practices."
+  },
+  {
+    "id": "skill-nodejs",
+    "name": "Node.js/.NET/Java",
+    "version": "1.0.0",
+    "description": "Develop server-side services and APIs using Node.js, .NET Core, or Java Spring Boot following clean architecture principles."
+  },
+  {
+    "id": "skill-docker",
+    "name": "Docker/Kubernetes",
+    "version": "1.0.0",
+    "description": "Containerise applications with Docker and orchestrate workloads with Kubernetes, including Helm chart authoring and namespace management."
+  },
+  {
+    "id": "skill-databases",
+    "name": "SQL/NoSQL Databases",
+    "version": "1.0.0",
+    "description": "Design schemas, write optimised queries, and manage migrations for relational (PostgreSQL, SQL Server) and document (MongoDB, CosmosDB) databases."
+  },
+  {
+    "id": "skill-git",
+    "name": "Git/Version Control",
+    "version": "1.0.0",
+    "description": "Apply Git workflows (GitFlow, trunk-based development), manage branches, resolve conflicts, and maintain clean commit history."
+  },
+  {
+    "id": "skill-performance-tools",
+    "name": "Performance Testing Tools",
+    "version": "1.0.0",
+    "description": "Execute load, stress, and soak tests using tools such as k6, JMeter, or Gatling. Analyse results and report on latency and throughput metrics."
+  },
+  {
+    "id": "skill-python",
+    "name": "Python",
+    "version": "1.0.0",
+    "description": "Develop scripts, automation, ML pipelines, and backend services using Python following PEP 8 conventions and pytest for testing."
+  },
+  {
+    "id": "skill-cicd-tools",
+    "name": "CI/CD Tools (GitHub Actions / Azure DevOps / Jenkins)",
+    "version": "1.0.0",
+    "description": "Author and maintain CI/CD pipelines for build, test, and deployment workflows across popular pipeline platforms."
+  }
+]

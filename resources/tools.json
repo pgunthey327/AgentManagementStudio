@@ -1,0 +1,66 @@
+[
+  {
+    "id": "tool-read",
+    "name": "Read",
+    "version": "1.0.0",
+    "category": "read",
+    "specificTools": ["Read"],
+    "description": "Read files from the local filesystem to understand existing code, configuration, and documentation."
+  },
+  {
+    "id": "tool-edit",
+    "name": "Edit",
+    "version": "1.0.0",
+    "category": "edit",
+    "specificTools": ["Edit", "Write"],
+    "description": "Edit and write files to implement features, fix bugs, and create new artefacts."
+  },
+  {
+    "id": "tool-search",
+    "name": "Search",
+    "version": "1.0.0",
+    "category": "search",
+    "specificTools": ["Glob", "Grep"],
+    "description": "Search the codebase using glob patterns and regex to locate files, symbols, and references."
+  },
+  {
+    "id": "tool-bash",
+    "name": "Execute",
+    "version": "1.0.0",
+    "category": "execute",
+    "specificTools": ["Bash"],
+    "description": "Execute shell commands for builds, tests, git operations, and system-level tasks."
+  },
+  {
+    "id": "tool-agent",
+    "name": "Agent",
+    "version": "1.0.0",
+    "category": "agent",
+    "specificTools": ["Agent"],
+    "description": "Spawn and coordinate sub-agents to handle parallel or specialised tasks within a workflow."
+  },
+  {
+    "id": "tool-vscode",
+    "name": "VS Code Extensions",
+    "version": "1.0.0",
+    "category": "vscode/extensions",
+    "specificTools": [],
+    "description": "Interact with VS Code extension APIs to manage workspace state, show UI, and integrate with the editor."
+  },
+  {
+    "id": "tool-web",
+    "name": "Web",
+    "version": "1.0.0",
+    "category": "web",
+    "specificTools": ["WebSearch", "WebFetch"],
+    "description": "Fetch web pages and perform searches to gather up-to-date information, documentation, or API references."
+  },
+  {
+    "id": "tool-findtestfiles",
+    "name": "Find Test Files",
+    "version": "1.0.0",
+    "category": "findTestFiles",
+    "specificTools": ["Glob", "Grep"],
+    "description": "Locate test files across the workspace using patterns to understand existing coverage and identify gaps."
+  }
+]

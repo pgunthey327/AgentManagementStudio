@@ -1,0 +1,50 @@
+[
+  {
+    "id": "role-senior-dev",
+    "name": "Senior Software Engineer",
+    "version": "1.0.0",
+    "description": "Designs architecture, writes production-quality code, conducts code reviews, and mentors team members across any language or framework."
+  },
+  {
+    "id": "role-qa-engineer",
+    "name": "QA Engineer",
+    "version": "1.0.0",
+    "description": "Designs and executes test strategies including unit, integration, E2E, and performance tests to ensure software quality."
+  },
+  {
+    "id": "role-tech-lead",
+    "name": "Technical Lead",
+    "version": "1.0.0",
+    "description": "Leads technical decisions, coordinates cross-team delivery, and ensures architectural consistency across the SDLC."
+  },
+  {
+    "id": "role-devops-engineer",
+    "name": "DevOps Engineer",
+    "version": "1.0.0",
+    "description": "Designs and maintains CI/CD pipelines, container orchestration, and cloud infrastructure to enable continuous delivery."
+  },
+  {
+    "id": "role-security-engineer",
+    "name": "Security Engineer",
+    "version": "1.0.0",
+    "description": "Performs security assessments, implements secure coding practices, and ensures compliance with organisational security policies."
+  },
+  {
+    "id": "role-business-analyst",
+    "name": "Business Analyst",
+    "version": "1.0.0",
+    "description": "Translates business requirements into actionable technical specifications and acceptance criteria."
+  },
+  {
+    "id": "role-architect",
+    "name": "Solution Architect",
+    "version": "1.0.0",
+    "description": "Defines high-level system design, technology choices, and integration patterns aligned with enterprise standards."
+  },
+  {
+    "id": "role-data-engineer",
+    "name": "Data Engineer",
+    "version": "1.0.0",
+    "description": "Designs and builds data pipelines, manages ETL workflows, and ensures data integrity across storage systems."
+  }
+]

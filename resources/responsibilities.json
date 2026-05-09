@@ -1,0 +1,62 @@
+[
+  {
+    "id": "resp-documentation",
+    "name": "Documentation and Knowledge Sharing",
+    "version": "1.0.0",
+    "description": "Create and maintain comprehensive documentation including API references, architecture diagrams, runbooks, and onboarding guides. Share knowledge through code comments, wikis, and team sessions."
+  },
+  {
+    "id": "resp-security",
+    "name": "Security Implementation",
+    "version": "1.0.0",
+    "description": "Apply OWASP top-10 mitigations, enforce least-privilege access, conduct threat modelling, and ensure secrets management aligns with organisational security standards."
+  },
+  {
+    "id": "resp-requirements",
+    "name": "Requirement Analysis",
+    "version": "1.0.0",
+    "description": "Analyse business requirements, define acceptance criteria, break features into deliverable tasks, and validate that implementation aligns with stakeholder expectations."
+  },
+  {
+    "id": "resp-collaboration",
+    "name": "Team Collaboration and Mentoring",
+    "version": "1.0.0",
+    "description": "Foster a collaborative culture through pair programming, code reviews, knowledge-transfer sessions, and mentoring junior team members."
+  },
+  {
+    "id": "resp-code-quality",
+    "name": "Code Quality and Reviews",
+    "version": "1.0.0",
+    "description": "Enforce coding standards, conduct thorough peer reviews, and use static analysis tools to maintain a high-quality, maintainable codebase."
+  },
+  {
+    "id": "resp-testing",
+    "name": "Comprehensive Testing",
+    "version": "1.0.0",
+    "description": "Design and implement unit, integration, E2E, and regression test suites. Maintain test coverage thresholds and ensure all CI pipelines include automated test gates."
+  },
+  {
+    "id": "resp-performance",
+    "name": "Performance Optimisation",
+    "version": "1.0.0",
+    "description": "Profile application performance, identify bottlenecks, and apply optimisations at code, database, network, and infrastructure levels."
+  },
+  {
+    "id": "resp-cicd",
+    "name": "CI/CD Pipeline Management",
+    "version": "1.0.0",
+    "description": "Design, implement, and maintain automated build, test, and deployment pipelines to support continuous delivery and rapid feedback loops."
+  },
+  {
+    "id": "resp-incident",
+    "name": "Incident Response and Root Cause Analysis",
+    "version": "1.0.0",
+    "description": "Lead or support production incident triage, root cause analysis, and post-incident reviews. Implement preventive measures to reduce mean time to recovery."
+  },
+  {
+    "id": "resp-compliance",
+    "name": "Compliance and Governance",
+    "version": "1.0.0",
+    "description": "Ensure solutions meet regulatory, audit, and governance requirements. Maintain traceability between requirements and delivered artefacts."
+  }
+]

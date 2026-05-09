@@ -1,0 +1,62 @@
+[
+  {
+    "id": "instr-automation-best-practices",
+    "name": "Follow Test Automation Best Practices",
+    "version": "1.0.0",
+    "description": "Apply the Test Pyramid principle: prefer fast unit tests, use integration tests for boundaries, and reserve E2E tests for critical paths. Keep tests independent, deterministic, and fast."
+  },
+  {
+    "id": "instr-clean-code",
+    "name": "Write Clean and Maintainable Code",
+    "version": "1.0.0",
+    "description": "Write minimal, self-documenting code. Use meaningful names, avoid speculative abstractions, prefer editing existing files, and follow the language's idiomatic conventions."
+  },
+  {
+    "id": "instr-error-handling",
+    "name": "Implement Comprehensive Error Handling",
+    "version": "1.0.0",
+    "description": "Handle errors at system boundaries only. Use typed exceptions, log meaningful messages, avoid swallowing errors, and ensure failure modes are visible to the caller."
+  },
+  {
+    "id": "instr-documentation",
+    "name": "Create Detailed Documentation",
+    "version": "1.0.0",
+    "description": "Document the WHY (non-obvious constraints, invariants, workarounds), not the WHAT. Keep docs co-located with code and treat them as a first-class deliverable."
+  },
+  {
+    "id": "instr-code-reviews",
+    "name": "Perform Code Reviews",
+    "version": "1.0.0",
+    "description": "Review diffs for correctness, security, performance, and maintainability. Raise actionable comments with suggested fixes rather than vague observations."
+  },
+  {
+    "id": "instr-performance",
+    "name": "Optimise for Performance",
+    "version": "1.0.0",
+    "description": "Profile before optimising. Target the highest-impact bottlenecks — algorithmic complexity, I/O, database queries — and measure improvements with benchmarks."
+  },
+  {
+    "id": "instr-security",
+    "name": "Ensure Security Compliance",
+    "version": "1.0.0",
+    "description": "Validate all external input, sanitise outputs, manage secrets via environment variables or vaults, apply least-privilege access, and audit dependencies for known vulnerabilities."
+  },
+  {
+    "id": "instr-version-control",
+    "name": "Maintain Version Control Hygiene",
+    "version": "1.0.0",
+    "description": "Write atomic, descriptive commits. Use feature branches, rebase over merge where appropriate, tag releases, and never commit secrets or large binaries."
+  },
+  {
+    "id": "instr-ci",
+    "name": "Implement Continuous Integration",
+    "version": "1.0.0",
+    "description": "Ensure every commit triggers automated build, lint, and test pipelines. Keep the main branch always deployable and fail fast on regressions."
+  },
+  {
+    "id": "instr-collaboration",
+    "name": "Collaborate Effectively",
+    "version": "1.0.0",
+    "description": "Communicate intent before implementation. Ask clarifying questions early, surface blockers promptly, and provide concise progress summaries to stakeholders."
+  }
+]
