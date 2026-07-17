@@ -123,7 +123,7 @@ async function showGroupSelection() {
         },
         {
             label: '$(beaker) Quality Engineering Agents',
-            description: 'QE lead, automation, test case generation, and requirement analysis agents',
+            description: 'Requirement analysis, automation, and test case generation agents',
             detail: 'End-to-end quality engineering workflow agents',
         },
         {
